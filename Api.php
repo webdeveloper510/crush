@@ -8,7 +8,6 @@ $path = preg_replace('/wp-content.*$/', '', __DIR__);
 
 include($path . 'wp-load.php');
 
-
 // $api_name = $_GET['check_url'];
 // $api_name == 'register' ? register(): '';
 //   function register(){ 
@@ -712,10 +711,12 @@ function editcrush()
       $maiden_name   = $_POST['maiden_name'];
       $description   = $_POST['description'];
       $school_work   = $_POST['school_work'];
-      $email         = $_POST['email'];
+      // $user_id       = $_POST['user_id'];
+      $id            = $_POST['id'];
       $upload        = wp_upload_bits($_FILES["crush_image"]["name"], null, file_get_contents($_FILES["crush_image"]["tmp_name"]));
-      $retrieve_data = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix ."users WHERE user_email= '" .$email ."'");
-      $userid  = $retrieve_data[0]->ID;
+      // $retrieve_data = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix ."users WHERE user_email= '" .$email ."'");
+      // $retrieve_data = $wpdb->get_results("SELECT * FROM ".$wpdb->prefix ."users WHERE user_id= '" .$user_id."'");
+      // $userid  = $retrieve_data[0]->ID;
       $dbData = array(
                   "crush_name"      => $crush_name,
                   "middle_name"     => $middle_name,
@@ -725,9 +726,10 @@ function editcrush()
                   "description"     => $description,
                   "school_work"     => $school_work,
                   'crush_image'     => $upload['url'],
-                  'user_id'         => $userid
+                  // 'email'           => $email,
       );
-      $result=$wpdb->update('wp_add_crush', $dbData, array('user_id' => $userid ));
+      $result=$wpdb->update('wp_add_crush', $dbData, array('id' => $id));
+ 
       if (!empty($result)) {
             $status = 100;
             $datas = array('status' => $status,  'msg' => "Crush updated successfully");
