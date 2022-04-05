@@ -8,6 +8,7 @@ $path = preg_replace('/wp-content.*$/', '', __DIR__);
 
 include($path . 'wp-load.php');
 
+
 // $api_name = $_GET['check_url'];
 // $api_name == 'register' ? register(): '';
 //   function register(){ 
